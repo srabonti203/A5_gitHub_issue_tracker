@@ -34,5 +34,54 @@
       }
     </style>
   </head>
-  <body></body>
+  <body class="bg-base-200">
+    <section
+      class="w-8/12 h-screen mx-auto space-y-5 bg-base-100 shadow-sm flex flex-col justify-center items-center p-5"
+    >
+      <section
+        class="upper space-y-2 flex flex-col justify-center items-center"
+      >
+        <img src="./assets/github-logo.png" alt="" />
+        <h1 class="font-bold text-3xl text-center">GitHub Issues Tracker</h1>
+        <p class="text-gray-600 text-lg text-center">
+          Sign in to manage your issues
+        </p>
+      </section>
+
+      <section class="middle space-y-2">
+        <label class="label text-black font-medium">Username</label>
+        <input
+          id="username"
+          type="text"
+          class="input w-full"
+          placeholder="Enter Username"
+        /><br />
+        <label class="label text-black font-medium">Password</label>
+        <input
+          id="password"
+          type="password"
+          class="input w-full"
+          placeholder="Password"
+        />
+        <button id="signin-btn" class="btn btn-primary mt-4 w-full">
+          Sign In
+        </button>
+      </section>
+
+      <div class="hr_line flex items-center justify-center w-9/12 gap-3">
+        <hr class="border-gray-300 flex-1 border-1" />
+        <p class="text-gray-500">OR</p>
+        <hr class="border-gray-300 flex-1 border-1" />
+      </div>
+
+      <div class="credientials space-y-3 w-9/12 text-center">
+        <p class="text-gray-500">Demo Credentials:</p>
+        <div class="demo bg-base-200 p-3 text-center">
+          <p><span class="font-semibold">Username:</span> admin</p>
+          <p><span class="font-semibold">Password:</span> admin123</p>
+        </div>
+      </div>
+    </section>
+    <script src="./script/index.js"></script>
+  </body>
 </html>
