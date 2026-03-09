@@ -39,19 +39,28 @@ const displayIssue = (issues) => {
   for (let issue of issues) {
     //show colours on label btn dynamically
     let priorityClass = "";
+    let borderColour = "";
+    let checkIcon = "";
     if (issue.priority == "high") {
       priorityClass = "btn-secondary";
     } else if (issue.priority == "medium") {
       priorityClass = "btn-warning";
-    } else {
+    } else if (issue.priority == "low") {
       priorityClass = "";
+    }
+    if (issue.status == "open") {
+      borderColour = "border-green-600";
+      checkIcon = "./assets/Open-Status.png";
+    } else if (issue.status == "closed") {
+      borderColour = "border-purple-600";
+      checkIcon = "./assets/Closed- Status .png";
     }
     let cartDiv = document.createElement("div");
     cartDiv.innerHTML = `
-    <div class="card w-full h-96 bg-base-100 card-xl shadow-sm  space-y-3 border-t-4">
+    <div class="card w-full h-96 bg-base-100 card-xl shadow-sm  space-y-3 border-t-4 ${borderColour}">
             <div class="p-4 space-y-3">
               <div class="flex items-center justify-between">
-              <img src="./assets/Closed- Status .png" alt="">
+              <img src="${checkIcon}" alt="">
               <button class="btn rounded-full btn-outline ${priorityClass}">${issue.priority}</button>
             </div>
             <div class=" space-y-3">
