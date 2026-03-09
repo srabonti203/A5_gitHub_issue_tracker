@@ -32,6 +32,10 @@
       body {
         font-family: "Geist", sans-serif;
       }
+      .active {
+        background-color: rgb(8, 8, 155);
+        color: white;
+      }
     </style>
   </head>
   <body>
@@ -71,9 +75,23 @@
       <section
         class="md:w-11/12 w-full mx-auto bg-base-100 p-3 space-x-3 px-4 md:space-x-5 text-left"
       >
-        <button id="all-btn" class="btn btn-primary md:w-20">All</button>
-        <button id="open-btn" class="btn btn-primary md:w-20">Open</button>
-        <button id="closed-btn" class="btn btn-primary">Closed</button>
+        <button
+          onclick="toggleStyle('all-btn')"
+          id="all-btn"
+          class="btn btn-primary md:w-20"
+        >
+          All
+        </button>
+        <button
+          onclick="toggleStyle('open-btn')"
+          id="open-btn"
+          class="btn md:w-20"
+        >
+          Open
+        </button>
+        <button onclick="toggleStyle('closed-btn')" id="closed-btn" class="btn">
+          Closed
+        </button>
       </section>
 
       <!-- all count section  -->
@@ -102,6 +120,12 @@
       <!-- all cart container  -->
       <section
         id="cart-container"
+        class="md:w-11/12 w-full mx-auto bg-base-100 p-4 flex flex-col gap-4 md:flex-row md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-3 items-center"
+      ></section>
+
+      <!-- filtered open or closed  -->
+      <section
+        id="filtered-section"
         class="md:w-11/12 w-full mx-auto bg-base-100 p-4 flex flex-col gap-4 md:flex-row md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-3 items-center"
       ></section>
     </section>

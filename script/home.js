@@ -1,3 +1,8 @@
+const allBtn = document.getElementById("all-btn");
+const openBtn = document.getElementById("open-btn");
+const closedBtn = document.getElementById("closed-btn");
+const cartContainer = document.getElementById("cart-container");
+const filteredSection = document.getElementById("filtered-section");
 //2. all issues are loaded using this function
 const loadIssue = () => {
   const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
@@ -33,6 +38,30 @@ const creatElements = (arr) => {
   });
   return htmlElements.join(" ");
 };
+//toggle btn
+function toggleStyle(id) {
+  allBtn.classList.remove("btn-primary");
+  openBtn.classList.remove("btn-primary");
+  closedBtn.classList.remove("btn-primary");
+
+  allBtn.classList.add("btn-soft");
+  openBtn.classList.add("btn-soft");
+  closedBtn.classList.add("btn-soft");
+
+  let selected = document.getElementById(id);
+  selected.classList.remove("btn-soft");
+  selected.classList.add("btn-primary");
+
+  if (id == "all-btn") {
+    filteredSection.classList.add("hidden");
+    return;
+  }
+  if (id == "open-btn" || id == "all-btn") {
+    filteredSection.classList.remove("hidden");
+    cartContainer.classList.add("hidden");
+    return;
+  }
+}
 //3 issues are displayed using this function
 const displayIssue = (issues) => {
   const cartContainer = document.getElementById("cart-container");
