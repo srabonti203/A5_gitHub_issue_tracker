@@ -1,129 +1,50 @@
-# 🌟 Welcome To (সহজ সরল সিম্পল) Assignment - 5
+1️⃣ What is the difference between var, let, and const?
+var:if a variable is declared with var it can be reassigned.var is function scoped.example-
+var a=10;
+var a=20;
 
-# **📅 Deadline For 60 marks:** 9th March, 2026 (11:59 pm ⏱️)  
-#  📅 No Deadline For 50 marks  
-# **📅 Deadline For 30 marks:** Any time after 9th March.
+let:if a variable is declared with var it can be reassigned and redeclared.let is blocked scoped.example-
+let a=10;
+let b=20;
+b=10;
 
----
+const:if a variable is declared with var it can't be reassigned and redeclared.const is blocked scoped.example-
+const a=10;//allowed
+const b=20;
+b=10;//not allowed
 
-# Assignment-05: GitHub Issues Tracker
+2️⃣ What is the spread operator (...)?
+it is an operator that expands the elements of an array or object.it is also used to copy array and objects.example-
+const arr=[1,2,2,3,3,4,5,6];
+const arr2=[...arr,25,23];
 
+3️⃣ What is the difference between map(), filter(), and forEach()?
+map():using this function we can traverse an array or object and the output of this function is also an array.example-
+const a=[2,6,10]
+const double=a.map((n)=>n\*2);
+console.log(double);//output:[4,12,20]
 
-### **API Endpoints:**
-###  **All Issues:** 
-  - https://phi-lab-server.vercel.app/api/v1/lab/issues 
+filter():using this function we can traverse an array or object and get the desired by matching a condition and the output of this function is also an array.example-
+const a=[2,6,10,1,5,9]
+const even=a.filter((n)=>n\2==0);
+console.log(even);//output:[2,6,10]
 
+foreach():using this function we can traverse an array or object but this function is doesnt an array.example-
+const a=[2,6,10]
+a.foreach((n)=>console.log(n));
 
-###  **Single Issue:**
-   - https://phi-lab-server.vercel.app/api/v1/lab/issue/{id}
+4️⃣ What is an arrow function?
+arrow function is a shorter form of writing a function in ES6.
+normal function:
+function add(a,b){
+return a+b;
+}
+arrow function:
+const add=(a,b)=>a+b;
 
-   - Example: https://phi-lab-server.vercel.app/api/v1/lab/issue/33
-
-
-###  **Search Issue:** https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q={searchText}
-
-   - Example:  https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=notifications
-
-
----
-
-## 📝 Main Requirements
-
-## 🎨 Design Part
-
-## Login Page
-- Create a login page containing a logo, title, and sub-title
-- Below that, there will be 2 inputs, a sign-in button, and a demo credential to sign in. Follow the Figma for this page 
-- Styled as per Figma
-
-## Main Page: 
-
-### Navbar: 
-
-- Navbar with website logo/name on the left
-- Search input and button on the right
-
-### Tab Section like Figma: 
-
-- 3 tab ( All, Open, Closed) at the top of this section.(**All**, **Open**, **Closed**)
-
-- Below the tab, there will be an icon, the issue count, some text on the left, and an open and closed marker on the right
-
-- Responsiveness: The website should be responsive for mobile devices. It is totally up to you. 
-
-
---- 
-
-
-## ⚙️ Functionalities
-- In login page, there will be default admin credentials (username, password). You need to sign in using these credentials.
-
-- Load all issues and display as per Figma
-
-- On clicking on an open or closed tab, it will load the issues data of the related tab and show it in a display-like card in a 4-column layout like Figma. By default, it will show all data 
-
-- Each card shows:
-  - Title
-  - Description
-  - Status
-  - Category
-  - Author
-  - Priority
-  - Label
-  - CreatedAt
-- Clicking on a tree name in a card will open a modal and show all the information about that Issue. 
-
-### 🚀 Challenges
-
-
-- Show the card Top border based on their category(open, closed), open card will have Green Boder, closed card will have a purple border on top. 
-
-- Loading spinner on data load
-
-- Show active button on changing category names
-
-- Implement Search Functionality and 8 meaningful github commit.  
-
-- Create a readme file and answer this question on your own. Don’t copy-paste from Google or any AI chatbot. 
-    - 1️⃣ What is the difference between var, let, and const?
-    - 2️⃣ What is the spread operator (...)?
-    - 3️⃣ What is the difference between map(), filter(), and forEach()?
-    - 4️⃣ What is an arrow function?
-    - 5️⃣ What are template literals?
-
-
----
-
-## 🛠️ Technology Stack
-
-- **HTML**
-- **CSS** (Vanilla/Tailwind/DaisyUI)
-- **JavaScript** (Vanilla)
-
----
-
-## 🔑 Demo Credentials
-
-```text
-Username: admin
-Password: admin123
-```
-
-
----
-
-### Optional: 
- - No need to show status: Open, Closed styles On modals. 
- - No Need to show icon on labels 
- - No need to apply styles on Priority 
---- 
-
-
-## 📤 What to submit
-
-- **GitHub Repository Link:**
-- **Live Site Link:**
-
----
-
-
+5️⃣ What are template literals?
+using template literal we can write multi line string which cant be done with "" or ''.using this we can also embedde expressions or value to the string.example:
+const name="bithi";
+const age=25;
+const text=`my name is ${name}
+and im ${age} years old`;
