@@ -3,16 +3,50 @@ const openBtn = document.getElementById("open-btn");
 const closedBtn = document.getElementById("closed-btn");
 const cartContainer = document.getElementById("cart-container");
 const filteredSection = document.getElementById("filtered-section");
-//2. all issues are loaded using this function
-const loadIssue = () => {
-  const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
-  fetch(url)
-    .then((res) => res.json())
-    .then((json) => {
-      displayIssue(json.data);
-    });
-};
+const issueCount = document.getElementById("issue-count");
+const losdingSpinner = document.getElementById("losdingSpinner");
 
+let allIssues = [];
+let openIssues = [];
+let closedIssues = [];
+
+//loading spinner function
+function showSpinner() {
+  losdingSpinner.classList.remove("hidden");
+  cartContainer.classList.add("hidden");
+}
+function hideSpinner() {
+  losdingSpinner.classList.add("hidden");
+  cartContainer.classList.remove("hidden");
+}
+
+//toggle btn
+function toggleStyle(id) {
+  allBtn.classList.remove("btn-primary");
+  openBtn.classList.remove("btn-primary");
+  closedBtn.classList.remove("btn-primary");
+
+  allBtn.classList.add("btn-soft");
+  openBtn.classList.add("btn-soft");
+  closedBtn.classList.add("btn-soft");
+
+  let selected = document.getElementById(id);
+  selected.classList.remove("btn-soft");
+  selected.classList.add("btn-primary");
+
+  if (id == "all-btn") {
+    displayIssue(allIssues);
+    issueCount.innerText = allIssues.length;
+  }
+  if (id == "open-btn") {
+    displayIssue(openIssues);
+    issueCount.innerText = openIssues.length;
+  }
+  if (id == "closed-btn") {
+    displayIssue(closedIssues);
+    issueCount.innerText = closedIssues.length;
+  }
+}
 //dynamically show labels
 const creatElements = (arr) => {
   const htmlElements = arr.map((el) => {
@@ -38,33 +72,31 @@ const creatElements = (arr) => {
   });
   return htmlElements.join(" ");
 };
-//toggle btn
-function toggleStyle(id) {
-  allBtn.classList.remove("btn-primary");
-  openBtn.classList.remove("btn-primary");
-  closedBtn.classList.remove("btn-primary");
 
-  allBtn.classList.add("btn-soft");
-  openBtn.classList.add("btn-soft");
-  closedBtn.classList.add("btn-soft");
+const findIssues = (findIssue) => {
+  //find open status and send it to the openissue array
+  openIssues = findIssue.filter((issue) => issue.status === "open");
+  closedIssues = findIssue.filter((issue) => issue.status === "closed");
+};
 
-  let selected = document.getElementById(id);
-  selected.classList.remove("btn-soft");
-  selected.classList.add("btn-primary");
+//2. all issues are loaded using this function
+const loadIssue = () => {
+  showSpinner();
+  const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
+  fetch(url)
+    .then((res) => res.json())
+    .then((json) => {
+      allIssues = json.data;
+      findIssues(allIssues);
+      displayIssue(allIssues);
+      issueCount.innerText = allIssues.length;
+    });
+  hideSpinner();
+};
 
-  if (id == "all-btn") {
-    filteredSection.classList.add("hidden");
-    return;
-  }
-  if (id == "open-btn" || id == "all-btn") {
-    filteredSection.classList.remove("hidden");
-    cartContainer.classList.add("hidden");
-    return;
-  }
-}
 //3 issues are displayed using this function
 const displayIssue = (issues) => {
-  const cartContainer = document.getElementById("cart-container");
+  cartContainer.innerHTML = "";
   for (let issue of issues) {
     //show colours on label btn dynamically
     let priorityClass = "";
@@ -105,11 +137,9 @@ const displayIssue = (issues) => {
               <p>${issue.id} by ${issue.author}</p>
               <p>${issue.createdAt}</p>
             </div>
-          </div>
-        </div>
+          </div> 
     `;
     cartContainer.appendChild(cartDiv);
   }
 };
-
 loadIssue(); //1.all the functionality starts from here

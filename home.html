@@ -105,7 +105,7 @@
             <img src="./assets/Aperture.png" alt="" />
           </div>
           <div>
-            <p class="font-bold"><span>50</span> Issues</p>
+            <p class="font-bold"><span id="issue-count">50</span> Issues</p>
             <p>Track and manage your project issues</p>
           </div>
         </div>
@@ -117,18 +117,21 @@
         </div>
       </section>
 
+      <!-- losding spinner -->
+      <section
+        id="losdingSpinner"
+        class="md:w-11/12 w-full mx-auto text-center hidden"
+      >
+        <span class="loading loading-spinner loading-xl"></span>
+      </section>
+
       <!-- all cart container  -->
       <section
         id="cart-container"
         class="md:w-11/12 w-full mx-auto bg-base-100 p-4 flex flex-col gap-4 md:flex-row md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-3 items-center"
       ></section>
-
-      <!-- filtered open or closed  -->
-      <section
-        id="filtered-section"
-        class="md:w-11/12 w-full mx-auto bg-base-100 p-4 flex flex-col gap-4 md:flex-row md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-3 items-center"
-      ></section>
     </section>
     <script src="./script/home.js"></script>
+    <!-- <script src="./test.js"></script> -->
   </body>
 </html>
