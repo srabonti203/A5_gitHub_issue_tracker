@@ -146,7 +146,6 @@ const displayIssue = (issues) => {
 };
 loadIssue(); //1.all the functionality starts from here
 
-
 //search issues
 searchBtn.addEventListener("click", () => {
   const inputVal = searchInput.value.trim().toLowerCase();
@@ -176,3 +175,40 @@ searchInput.addEventListener("input", (e) => {
     issueCount.innerText = allIssues.length;
   }
 });
+
+// modal functionality
+const loadModal = async (id) => {
+  const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/{id}`;
+  const res = await fetch(url);
+  const details = await res.json();
+  displayModal(details.data);
+};
+const displayModal = (issue) => {
+  const detailBox = document.getElementById("detail-box");
+  // console.log(word);
+  detailBox.innerHTML = `
+  <h2>${issue.title}</h2>
+      <div class="flex items-center gap-2">
+        <button class="btn ${issue.status == "open" ? "btn-success" : "bg-purple-800"}">${issue.status}</button>
+        <div class="w-2 h-2 rounded-full bg-gray-600"></div>
+        <p>${issue.status == "open" ? `Opened by ${issue.assignee}` : `Closed by ${issue.assignee}`}</p>
+        <div class="w-2 h-2 rounded-full bg-gray-600"></div>
+        <p>${issue.}</>
+      </div>
+      <div class="flex gap-2">
+        <button class="btn">fg</button>
+        <button class="btn">fg</button>
+      </div>
+      <p>dfjhgdlrghdruighsdrgu</p>
+      <div class="flex items-center gap-5 bg-base-200 p-4">
+        <div>
+          <p>fhgbfj</p>
+          <h3>fdgfdh</h3>
+        </div>
+        <div>
+          <p>fhgbfj</p>
+          <h3>fdgfdh</h3>
+        </div>
+      </div>
+  `;
+};
