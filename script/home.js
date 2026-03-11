@@ -5,6 +5,8 @@ const cartContainer = document.getElementById("cart-container");
 const filteredSection = document.getElementById("filtered-section");
 const issueCount = document.getElementById("issue-count");
 const losdingSpinner = document.getElementById("losdingSpinner");
+const searchInput = document.getElementById("searchInput");
+const searchBtn = document.getElementById("searchBtn");
 
 let allIssues = [];
 let openIssues = [];
@@ -68,7 +70,7 @@ const creatElements = (arr) => {
       colour = "btn-primary";
       icon = '<i class="fa-solid fa-file"></i>';
     }
-    return `<button class="btn rounded-full btn-outline ${colour}">${icon}${el}</button>`;
+    return `<button class="btn w-41 rounded-full btn-outline ${colour}">${icon}${el}</button>`;
   });
   return htmlElements.join(" ");
 };
@@ -90,8 +92,8 @@ const loadIssue = () => {
       findIssues(allIssues);
       displayIssue(allIssues);
       issueCount.innerText = allIssues.length;
+      hideSpinner();
     });
-  hideSpinner();
 };
 
 //3 issues are displayed using this function
@@ -118,7 +120,7 @@ const displayIssue = (issues) => {
     }
     let cartDiv = document.createElement("div");
     cartDiv.innerHTML = `
-    <div class="card w-full h-96 bg-base-100 card-xl shadow-sm  space-y-3 border-t-4 ${borderColour}">
+    <div class="card w-full h-106 bg-base-100 card-xl shadow-sm  space-y-3 border-t-4 ${borderColour}">
             <div class="p-4 space-y-3">
               <div class="flex items-center justify-between">
               <img src="${checkIcon}" alt="">
@@ -127,7 +129,7 @@ const displayIssue = (issues) => {
             <div class=" space-y-3">
               <h3 class="font-bold text-xl">${issue.title}</h3>
               <p class="text-gray-500">${issue.description}</p>
-              <div class="flex gap-2">
+              <div class="flex flex-col gap-2">
                 ${creatElements(issue.labels)}
               </div>
             </div>
@@ -143,3 +145,34 @@ const displayIssue = (issues) => {
   }
 };
 loadIssue(); //1.all the functionality starts from here
+
+
+//search issues
+searchBtn.addEventListener("click", () => {
+  const inputVal = searchInput.value.trim().toLowerCase();
+  if (inputVal === "") {
+    displayIssue(allIssues);
+    issueCount.innerText = allIssues.length;
+    return;
+  }
+  const filterIssue = allIssues.filter((issue) => {
+    return issue.title.toLowerCase().includes(inputVal);
+  });
+  displayIssue(filterIssue);
+  issueCount.innerText = filterIssue.length;
+
+  allBtn.classList.remove("btn-primary");
+  openBtn.classList.remove("btn-primary");
+  closedBtn.classList.remove("btn-primary");
+
+  allBtn.classList.add("btn-soft");
+  openBtn.classList.add("btn-soft");
+  closedBtn.classList.add("btn-soft");
+});
+searchInput.addEventListener("input", (e) => {
+  const inputVal = searchInput.value.trim().toLowerCase();
+  if (e.target.value == "") {
+    displayIssue(allIssues);
+    issueCount.innerText = allIssues.length;
+  }
+});
