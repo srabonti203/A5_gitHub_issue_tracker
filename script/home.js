@@ -7,6 +7,7 @@ const issueCount = document.getElementById("issue-count");
 const losdingSpinner = document.getElementById("losdingSpinner");
 const searchInput = document.getElementById("searchInput");
 const searchBtn = document.getElementById("searchBtn");
+const card = document.querySelector(".card");
 
 let allIssues = [];
 let openIssues = [];
@@ -120,7 +121,7 @@ const displayIssue = (issues) => {
     }
     let cartDiv = document.createElement("div");
     cartDiv.innerHTML = `
-    <div class="card w-full h-106 bg-base-100 card-xl shadow-sm  space-y-3 border-t-4 ${borderColour}">
+    <div onclick="loadModal('${issue.id}')" class="card w-full h-106 bg-base-100 card-xl shadow-sm  space-y-3 border-t-4 ${borderColour}">
             <div class="p-4 space-y-3">
               <div class="flex items-center justify-between">
               <img src="${checkIcon}" alt="">
@@ -169,7 +170,7 @@ searchBtn.addEventListener("click", () => {
   closedBtn.classList.add("btn-soft");
 });
 searchInput.addEventListener("input", (e) => {
-  const inputVal = searchInput.value.trim().toLowerCase();
+  // const inputVal = searchInput.value.trim().toLowerCase();
   if (e.target.value == "") {
     displayIssue(allIssues);
     issueCount.innerText = allIssues.length;
@@ -178,37 +179,60 @@ searchInput.addEventListener("input", (e) => {
 
 // modal functionality
 const loadModal = async (id) => {
-  const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/{id}`;
+  const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
   const res = await fetch(url);
   const details = await res.json();
   displayModal(details.data);
 };
 const displayModal = (issue) => {
   const detailBox = document.getElementById("detail-box");
-  // console.log(word);
+
   detailBox.innerHTML = `
-  <h2>${issue.title}</h2>
-      <div class="flex items-center gap-2">
-        <button class="btn ${issue.status == "open" ? "btn-success" : "bg-purple-800"}">${issue.status}</button>
-        <div class="w-2 h-2 rounded-full bg-gray-600"></div>
-        <p>${issue.status == "open" ? `Opened by ${issue.assignee}` : `Closed by ${issue.assignee}`}</p>
-        <div class="w-2 h-2 rounded-full bg-gray-600"></div>
-        <p>${issue.}</>
+    <h2 class="font-bold">${issue.title}</h2>
+    <div class="flex items-center gap-2">
+      <button class="btn rounded-full ${issue.status === "open" ? "btn-success" : "bg-purple-800 text-white"}">
+        ${issue.status}
+      </button>
+      <div class="w-2 h-2 rounded-full bg-gray-600"></div>
+      <p>
+${
+  issue.status === "open"
+    ? `Opened by ${issue.assignee ? issue.assignee : "(not assigned yet)"}`
+    : `Closed by ${issue.assignee ? issue.assignee : "(not assigned yet)"}`
+}
+</p>
+      <div class="w-2 h-2 rounded-full bg-gray-600"></div>
+      <p>${issue.createdAt}</p>
+    </div>
+    <div class="flex gap-2">
+      ${creatElements(issue.labels)}
+    </div>
+    <p>${issue.description}</p>
+    <div class="flex items-center justify-around bg-base-200 p-4 rounded-md">
+      <div>
+        <p class="text-gray-600">Assignee:</p>
+        <h3 class="font-bold">${issue.assignee ? issue.assignee : "not assigned yet"}</h3>
       </div>
-      <div class="flex gap-2">
-        <button class="btn">fg</button>
-        <button class="btn">fg</button>
+      <div>
+        <p class="text-gray-600">Priority:</p>
+        <p class="btn rounded-full ${
+          issue.priority === "high"
+            ? "btn-secondary"
+            : issue.priority === "medium"
+              ? "btn-warning"
+              : ""
+        }">
+${issue.priority}
+</p>
       </div>
-      <p>dfjhgdlrghdruighsdrgu</p>
-      <div class="flex items-center gap-5 bg-base-200 p-4">
-        <div>
-          <p>fhgbfj</p>
-          <h3>fdgfdh</h3>
-        </div>
-        <div>
-          <p>fhgbfj</p>
-          <h3>fdgfdh</h3>
-        </div>
-      </div>
+    </div>
   `;
+  document.getElementById("word_modal").showModal();
 };
+
+// card.addEventListener("click", (e) => {
+//   const clickedCard = e.target.closest(".card");
+//   if (clickedCard) {
+//     document.getElementById("word_modal").showModal();
+//   }
+// });
